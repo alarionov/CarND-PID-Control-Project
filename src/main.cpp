@@ -33,7 +33,8 @@ int main()
   uWS::Hub h;
 
   PID pid;
-  pid.Init(0.1, 0.001, 1);
+  pid.TwiddleInit();
+  pid.Init();
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
@@ -47,16 +48,25 @@ int main()
         std::string event = j[0].get<std::string>();
         if (event == "telemetry") {
           // j[1] is the data JSON object
-          double cte = std::stod(j[1]["cte"].get<std::string>());
+          double cte   = std::stod(j[1]["cte"].get<std::string>());
           double speed = std::stod(j[1]["speed"].get<std::string>());
           double angle = std::stod(j[1]["steering_angle"].get<std::string>());
           double steer_value;
 
+          // if Twiddle wasn't completed yet, do the step
+          if (!pid.twiddle_completed && pid.iteration > pid.batch_size)
+              pid.TwiddleStep();
+
+          // if restart required after a Twiddle step
+          if (pid.restart) pid.Restart(ws);
+
           pid.UpdateError(cte);
-          steer_value = pid.TotalError();
+
+          steer_value = pid.SteeringValue();
 
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
+          std::cout << "P: [" << pid.P[0] << ", " << pid.P[1] << ", " << pid.P[2] << "] I:" << pid.iteration << std::endl;
 
           json msgJson;
           msgJson["steering_angle"] = steer_value;
