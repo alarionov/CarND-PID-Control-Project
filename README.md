@@ -1,5 +1,21 @@
 # CarND-Controls-PID
 Self-Driving Car Engineer Nanodegree Program
+---
+
+PID controller - a proportional–integral–derivative controller is a control loop feedback mechanism (controller) commonly used in industrial control systems.
+A PID controller continuously calculates an error value e(t) as the difference between a desired setpoint and a measured process variable and applies a correction based on proportional, integral, and derivative terms (sometimes denoted P, I, and D respectively) which give their name to the controller type.
+
+Proportional term (P) - the proportional term produces an output value that is proportional to the current error value. The proportional response can be adjusted by multiplying the error by a constant Kp, called the proportional gain constant.
+
+Integral term (I) - the contribution from the integral term is proportional to both the magnitude of the error and the duration of the error. The integral in a PID controller is the sum of the instantaneous error over time and gives the accumulated offset that should have been corrected previously. The accumulated error is then multiplied by the integral gain (Ki) and added to the controller output.
+
+Derivative term (D) - the derivative of the process error is calculated by determining the slope of the error over time and multiplying this rate of change by the derivative gain Kd. The magnitude of the contribution of the derivative term to the overall control action is termed the derivative gain, Kd.([PID controller, Wikipedia](https://en.wikipedia.org/wiki/PID_controller))
+
+---
+
+Twiddle - Twiddle is an algorithm that tries to find a good choice of parameters P for an algorithm that returns an error.([The Twiddle Algorithm](https://martin-thoma.com/twiddle/))
+
+The values I got with Twiddle are: [0.903107, 0, 3.1769]
 
 ---
 
@@ -25,7 +41,7 @@ Self-Driving Car Engineer Nanodegree Program
 1. Clone this repo.
 2. Make a build directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
-4. Run it: `./pid`. 
+4. Run it: `./pid`.
 
 ## Editor Settings
 
