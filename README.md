@@ -17,6 +17,9 @@ Twiddle - Twiddle is an algorithm that tries to find a good choice of parameters
 
 The values I got with Twiddle are: [0.903107, 0, 3.1769]
 
+
+Video example: [https://www.youtube.com/watch?v=brImrH53T_8](https://www.youtube.com/watch?v=brImrH53T_8)
+
 ---
 
 ## Dependencies
